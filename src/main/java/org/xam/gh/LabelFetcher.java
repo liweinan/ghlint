@@ -1,5 +1,9 @@
 package org.xam.gh;
 
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.internal.ResteasyClientBuilderImpl;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.List;
@@ -24,8 +28,11 @@ class LabelFetcher {
     }
 
     static List paginate(String url) {
-        Client client = ClientBuilder.newClient();
+//        Client client = ClientBuilder.newClient();
         //client.register(EntityLoggingFilter.class);
+        ResteasyClient client = new ResteasyClientBuilderImpl().defaultProxy("squid.corp.redhat.com", 3128, "http").build();
+
+
         client.register(HTTPLoggingFilter.class);
 
         WebTarget target = client.target(url);
