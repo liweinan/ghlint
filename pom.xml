@@ -9,7 +9,7 @@
     <description>Jackson-json-tutorial</description>
 
     <properties>
-        <resteasy.ver>4.6.0-SNAPSHOT</resteasy.ver>
+        <resteasy.ver>4.5.0.Final</resteasy.ver>
     </properties>
 
     <dependencies>
