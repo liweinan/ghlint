@@ -17,9 +17,10 @@ import javax.ws.rs.core.Response;
 
 class LabelFetcher {
 
-    static String GITHUB_TOKEN = System.getenv("GITHUB_TOKEN");
+    static final String GITHUB_TOKEN = GithubToken.get();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
+        System.out.println("::: " + GITHUB_TOKEN);
 
         List labels = paginate("https://api.github.com/repos/quarkusio/quarkus/labels");
 
@@ -27,7 +28,7 @@ class LabelFetcher {
 
     }
 
-    static List paginate(String url) {
+    static List paginate(String url) throws Exception {
 //        Client client = ClientBuilder.newClient();
         //client.register(EntityLoggingFilter.class);
         ResteasyClient client = new ResteasyClientBuilderImpl().defaultProxy("squid.corp.redhat.com", 3128, "http").build();
@@ -51,6 +52,7 @@ class LabelFetcher {
             r = target.request().header("Authorization", "token " + GITHUB_TOKEN).get();
             data.addAll(r.readEntity(List.class));
             link = r.getLink("next");
+            Thread.sleep(1000);
             //System.out.println(link.getUri());
         }
 
