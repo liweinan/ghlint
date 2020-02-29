@@ -31,7 +31,8 @@ class LabelFetcher {
     static List paginate(String url) throws Exception {
 //        Client client = ClientBuilder.newClient();
         //client.register(EntityLoggingFilter.class);
-        ResteasyClient client = new ResteasyClientBuilderImpl().defaultProxy("squid.corp.redhat.com", 3128, "http").build();
+//        ResteasyClient client = new ResteasyClientBuilderImpl().defaultProxy("squid.corp.redhat.com", 3128, "http").build();
+        ResteasyClient client = new ResteasyClientBuilderImpl().build();
 
 
         client.register(HTTPLoggingFilter.class);
